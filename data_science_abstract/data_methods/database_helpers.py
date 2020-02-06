@@ -18,7 +18,7 @@ import urllib.parse as up # Python 3+
 def get_config_file_path():		
 	
 	# THIS VALUE SHOULD NEVER CHANGE. CAN'T RETRIEVE DIRECTLY FROM DB as it would cause Circular Dependency.
-	config_file_path = '/opt/api/config/python_config.ini' 
+	config_file_path = 'opt/api/config/python_config.ini' 
 	
 	return config_file_path
 	
