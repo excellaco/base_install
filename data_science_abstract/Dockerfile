@@ -9,7 +9,8 @@ WORKDIR /tmp
 RUN pip install -r requirements.txt
 
 # What port are we working under.
-EXPOSE 8000
+EXPOSE 8888
 
-# Start python3
-CMD ["python3"]
+# Run Jupyter
+CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
+#CMD /bin/bash
