@@ -1,4 +1,4 @@
-# ubiquitous-python-packages
+# base_install
 This repository consists of a bunch of Dockerfiles & requirements.txt files for pip installations. 
 
 **To build a docker image with a image alias:**
