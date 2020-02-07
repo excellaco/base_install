@@ -21,3 +21,7 @@ docker run -it -p <port:port> <image_alias>
 
 1: docker unpause *<container_id>* or docker unpause *<container_name>*
 
+- Important to note, start, stop, restart, kill, and rm (destroy) all follow the same syntax.
+- To stop all running docker containers: *docker stop $(docker ps -a -q)*
+- To remove all of the stopped docker containers: docker rm $(docker ps -q -f status=exited) 
+
