@@ -1,31 +1,26 @@
-# Download base image ubuntu:18.04
-FROM ubuntu:18.04
+# Download base image/
+FROM continuumio/miniconda3:latest
 
-# Update Ubuntu software repository.
-RUN apt-get update && apt-get install -y apt-transport-https
+# Add the environment.yml file, which contains all of our Python dependencies.
+# For projects requiring different packages, just modify the environment.yml file to include all of the Python packages you need.
+ADD environment.yml /
 
-# Download Python 3
-RUN apt-get -y install python3.6
+# Update the current environment based on environment.yml file and install from base_install.
+RUN conda update -n base -c defaults conda
+RUN conda update -n base conda && conda env update
+#RUN conda activate base
 
-# Download Git
-RUN apt-get install git-core
+# Retrieve our code from GitHub.
 
-# Download MySQL
-#RUN apt-get install mysql-server
-#RUN mysql_secure_installation
+# Entrypoint: In short, if no parameters are passed, the default is to boot up with JupyterLab and Visual Studio.
+# If we want to execute a script, we pass that in as a parameter.
+# With this setup, we can develop locally or run production applications when they are ready.
+# To pass an argument - add in the line after ENTRYPOINT, CMD ["python (script_name)"]
 
-# Have conda installed
+COPY docker_entrypoint.sh /tmp
+ADD code /tmp/code
+ADD opt /tmp/opt
+ADD data_methods /tmp/data_methods
+WORKDIR /tmp
 
-# Run this before copying requirements for cache efficiency
-# RUN pip install --upgrade pip
-
-# Add dependencies. [requirements.txt, data_methods, configuration files]
-# COPY requirements.txt /tmp
-# ADD opt /tmp/opt
-# ADD data_methods /tmp/data_methods
-# WORKDIR /tmp
-# RUN pip install -r requirements.txt
-# RUN pip install jupyter
-
-# Run Jupyter
-# CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
+ENTRYPOINT ["docker_entrypoint.sh"]

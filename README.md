@@ -1,11 +1,16 @@
 # base_install
-This repository consists of a bunch of Dockerfiles & requirements.txt files for pip installations. 
+The intent of the base install repository is to ease the workflow for developers by removing the pain of configuring a development environment per project.
+
+In this repository, we have a Dockerfile that includes JupyterLab for quick prototyping & Conda for Python dependencies.
+This allows our team to deploy and reproduce our models in a robust preconfigured environment.
 
 **To build a docker image with a image alias:**
 docker build -t *<image_alias>* *<folder_path_of_dockerfile>*
+Ex: docker built -t fraud_prediction .
 
 **Run a docker image by calling the image alias:**
 docker run -it -p <port:port> <image_alias>
+Ex: docker run -it -p 8888:8888 fraud_prediction -> Jupyter lab will be running on 8888.
 
 **Run a docker container:**
 

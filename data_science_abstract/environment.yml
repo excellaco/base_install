@@ -1,0 +1,17 @@
+name: base_install
+dependencies:
+ - jupyterlab
+ - Keras
+ - matplotlib
+ - mysql-connector-python
+ - numpy
+ - pandas
+ - PyMySQL
+ - pyodbc
+ - scikit-learn
+ - scipy
+ - seaborn
+ - SQLAlchemy
+ - statsmodels
+ - tensorboard
+ - urllib3
