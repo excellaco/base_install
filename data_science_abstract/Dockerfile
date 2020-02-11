@@ -6,8 +6,6 @@ FROM continuumio/miniconda3:latest
 WORKDIR /app
 
 # Add additional files to working directory
-COPY /opt .
-COPY /data_methods .
 COPY docker-entrypoint.sh .
 
 # Add code from GitHub to working directory if applicable

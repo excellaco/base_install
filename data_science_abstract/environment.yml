@@ -4,6 +4,7 @@ dependencies:
  - Keras
  - matplotlib
  - mysql-connector-python
+ - mysqlclient
  - numpy
  - pandas
  - PyMySQL
