@@ -22,3 +22,4 @@ SHELL ["conda", "run", "-n", "base_install", "/bin/bash", "-c"]
 
 # Code to execute when the container is started
 ENTRYPOINT ["conda", "run", "-n", "base_install", "./docker-entrypoint.sh"]
+#ENTRYPOINT ["conda", "run", "-n", "base_install", "./docker-entrypoint.sh", "hello_world.py"]
