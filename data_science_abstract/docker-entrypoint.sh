@@ -8,4 +8,3 @@ if [ $# -eq 0 ]
      else
           exec "$@"
 fi
-

@@ -1,26 +1,26 @@
-# Download base image/
+# Instead of using conda activate, there's another way to run a command inside an environment. 
+# conda run -n [environment_name] [your-command] will run command in environment.
+
+# Download base image and set working directory
 FROM continuumio/miniconda3:latest
+WORKDIR /app
 
-# Add the environment.yml file, which contains all of our Python dependencies.
-# For projects requiring different packages, just modify the environment.yml file to include all of the Python packages you need.
-ADD environment.yml /
+# Add additional files to working directory
+COPY /opt .
+COPY /data_methods .
+COPY docker-entrypoint.sh .
 
-# Update the current environment based on environment.yml file and install from base_install.
-RUN conda update -n base -c defaults conda
-RUN conda update -n base conda && conda env update
-#RUN conda activate base
+# Add code from GitHub to working directory if applicable
 
-# Retrieve our code from GitHub.
+# Create the environment. Also install Jupyter & set permissions for our entrypoint script.
+COPY environment.yml .
+RUN conda update -n base -c defaults conda && \
+   conda env create -f environment.yml && \
+   pip install jupyter && \
+   chmod 777 docker-entrypoint.sh
+   
+# Make RUN commands use the new environment
+SHELL ["conda", "run", "-n", "base_install", "/bin/bash", "-c"]
 
-# Entrypoint: In short, if no parameters are passed, the default is to boot up with JupyterLab and Visual Studio.
-# If we want to execute a script, we pass that in as a parameter.
-# With this setup, we can develop locally or run production applications when they are ready.
-# To pass an argument - add in the line after ENTRYPOINT, CMD ["python (script_name)"]
-
-COPY docker_entrypoint.sh /tmp
-ADD code /tmp/code
-ADD opt /tmp/opt
-ADD data_methods /tmp/data_methods
-WORKDIR /tmp
-
-ENTRYPOINT ["docker_entrypoint.sh"]
+# Code to execute when the container is started
+ENTRYPOINT ["conda", "run", "-n", "base_install", "./docker-entrypoint.sh"]
