@@ -15,10 +15,14 @@ COPY environment.yml .
 RUN conda update -n base -c defaults conda && \
    conda env create -f environment.yml && \
    pip install jupyter && \
-   chmod 777 docker-entrypoint.sh
    
 # Make RUN commands use the new environment
 SHELL ["conda", "run", "-n", "base_install", "/bin/bash", "-c"]
+
+# Jupyter Notebook
+EXPOSE 8888
+
+RUN chmod +x docker-entrypoint.sh
 
 # Code to execute when the container is started
 ENTRYPOINT ["conda", "run", "-n", "base_install", "./docker-entrypoint.sh"]
