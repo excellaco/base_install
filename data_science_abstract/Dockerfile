@@ -4,10 +4,9 @@
 # Download base image and set working directory
 FROM continuumio/miniconda3:latest
 
-WORKDIR /app
+# Make configuration directory, then switch back to /app.
 
-# Make configuration directory.
-RUN mkdir -p /opt/api
+WORKDIR /app
 
 # Linux
 RUN apt-get update && apt-get install -y build-essential && \
@@ -22,6 +21,8 @@ RUN conda install -c conda-forge tqdm
 # Add additional files to working directory
 COPY docker-entrypoint.sh .
 COPY hello_world.py .
+COPY opt ./opt
+COPY notebooks ./notebooks
 
 # TensorFlow
 RUN conda install -c conda-forge tensorflow
