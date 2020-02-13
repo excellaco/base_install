@@ -1,32 +1,98 @@
 # base_install
 The intent of the base install repository is to ease the workflow for developers by removing the pain of configuring a development environment per project.
 
-In this repository, we have a Dockerfile that includes JupyterLab for quick prototyping & Conda for Python dependencies.
+In this repository, we have a Dockerfile that includes Jupyter Notebooks for quick prototyping & Conda for Python dependencies.
 This allows our team to deploy and reproduce our models in a robust preconfigured environment.
 
-**To build a docker image with a image alias:**
-docker build -t *<image_alias>* *<folder_path_of_dockerfile>*
-Ex: docker build -t fraud_prediction .
+##Quick Review - ##
 
-**Run a docker image by calling the image alias:**
-docker run -d -p <port:port> <image_alias>
-Ex: docker run -it -p 8888:8888 fraud_prediction -> Jupyter lab will be running on 8888.
+- **Image**: Blueprint. Containers are instances of an image.
+- **Dockerfile**: List of commands in a file used to create and update Docker Images.
+- **Docker-Compose**: Tool used to define and launch Docker applications.
 
-**Run a docker container:**
+##docker-entrypoint.sh - ##
 
-1: Run docker ps -a to see all instances.
+- `--allow-root`: Needed since we use root to launch docker.
+- `--port 8888`: Must be the same as docker's port for Jupyter Notebook.
+- `--ip 0.0.0.0`: Reassign Jupyter Notebook server's IP.
 
-2: docker run -it -d --name *<container_alias>* *<image_to_base_off_alias>* " -> This will return an ID like 5f76df2605af1ce0fv91a9aba2526ab8deb119b28968f0037b3e7f832de3c98j
+##To build a docker image - ##
 
-**How to pause a container: (Pause the processes running in a container)**
+```
+docker-compose build
+```
 
-1: docker pause *<container_id>* or docker pause *<container_name>*
+To check docker images -
 
-**How to unpause a container: (Unpause the processes running in a container)**
+```
+docker images
+```
 
-1: docker unpause *<container_id>* or docker unpause *<container_name>*
+##Create a docker container:##
+
+```
+docker-compose up
+```
+
+Run docker compose in background:
+
+```
+docker-compose up -d
+```
+
+Check docker containers:
+
+```
+docker ps -a
+```
+
+##Access Jupyter Notebook:##
+
+```
+http://0.0.0.0:8888
+```
+
+##How to pause a container: (Pause the processes running in a container)##
+
+```
+docker pause *<container_id>* or docker pause *<container_name>*
+```
+
+##How to unpause a container: (Unpause the processes running in a container)##
+
+```
+docker unpause *<container_id>* or docker unpause *<container_name>*
+```
 
 - Important to note, start, stop, restart, kill, and rm (destroy) all follow the same syntax.
 - To stop all running docker containers: *docker stop $(docker ps -a -q)*
 - To remove all of the stopped docker containers: docker rm $(docker ps -q -f status=exited) 
+
+##Push our image to DockerHub:##
+
+```
+# Rebuild Docker Image
+docker build -t <image_alias>
+
+# Retag docker image
+docker tag <tag_name> <image_alias>
+
+# Push to Docker Hub
+docker push <image_alias>
+```
+
+##Pull our image from DockerHub:##
+
+```
+# Pull from Docker Hub
+docker pull <image_alias>
+
+# Retag docker image
+docker tag <tag_name> <image_alias>
+```
+
+After retagging, we can just use docker-compose up to launch Docker.
+
+
+
 

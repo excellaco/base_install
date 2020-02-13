@@ -3,7 +3,6 @@
 
 # Download base image and set working directory
 FROM continuumio/miniconda3:latest
-WORKDIR /app
 
 # Add additional files to working directory
 COPY docker-entrypoint.sh .
@@ -14,7 +13,7 @@ COPY docker-entrypoint.sh .
 COPY environment.yml .
 RUN conda update -n base -c defaults conda && \
    conda env create -f environment.yml && \
-   pip install jupyter && \
+   pip install jupyter
    
 # Make RUN commands use the new environment
 SHELL ["conda", "run", "-n", "base_install", "/bin/bash", "-c"]
