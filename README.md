@@ -94,6 +94,19 @@ docker tag <tag_name> <image_alias>
 
 After retagging, we can just use docker-compose up to launch Docker.
 
+### Local Development or Production Use?### 
 
+Inside of the README, you will see -
+
+```
+# Add additional files to working directory
+COPY docker-entrypoint.sh .
+COPY hello_world.py .
+
+# Code to execute when the container is started
+#ENTRYPOINT ["conda", "run", "-n", "base_install", "./docker-entrypoint.sh"]
+CMD python hello_world.py
+```
+Replace hello world with the code you will want to run to start your application. For local development, uncomment entrypoint and comment out the CMD statement. For production use, keep entrypoint commented out, and leave uncommented the CMD statement.
 
 
