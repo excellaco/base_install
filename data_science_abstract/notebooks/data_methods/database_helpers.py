@@ -18,7 +18,7 @@ import urllib.parse as up # Python 3+
 def get_config_file_path():		
 	
 	# THIS VALUE SHOULD NEVER CHANGE. CAN'T RETRIEVE DIRECTLY FROM DB as it would cause Circular Dependency.
-	config_file_path = '/opt/api/config/python_config.ini' 
+	config_file_path = '/app/opt/api/config/python_config.ini' 
 	
 	return config_file_path
 	
@@ -57,7 +57,7 @@ slash_value 					= '/'
 # mysql_connection_string variable can be created from this method and passed to connect_to_database(connection_string)
 
 def get_mysql_connection_string_credentials(server, username, password):
-	result = mysql_connection_string_prefix + username + colon_value + up.quote(password, safe = '')
+	result = mysql_connection_string_prefix + username + colon_value + password
 	result = result + at_value + server + mysql_port_number + slash_value
 	
 	return result

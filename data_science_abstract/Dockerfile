@@ -4,14 +4,15 @@
 # Download base image and set working directory
 FROM continuumio/miniconda3:latest
 
-# Make configuration directory, then switch back to /app.
-
 WORKDIR /app
 
 # Linux
 RUN apt-get update && apt-get install -y build-essential && \
     conda update -n base conda && \
     conda update --all
+    
+RUN apt-get install -y default-libmysqlclient-dev
+RUN apt-get install -y default-mysql-server
     
 ## Install Python utilities
 RUN conda install -c conda-forge tqdm
@@ -39,6 +40,9 @@ SHELL ["conda", "run", "-n", "base_install", "/bin/bash", "-c"]
 
 # XGBoost
 RUN pip install xgboost
+
+# MySQLDB
+RUN pip install mysqlclient
    
 # Jupyter Notebook
 EXPOSE 8888
