@@ -43,6 +43,8 @@ RUN pip install xgboost
 
 # MySQLDB
 RUN pip install mysqlclient
+RUN service mysql start
+RUN /etc/init.d/mysql start
    
 # Jupyter Notebook
 EXPOSE 8888

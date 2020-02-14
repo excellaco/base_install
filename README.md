@@ -107,6 +107,17 @@ COPY hello_world.py .
 #ENTRYPOINT ["conda", "run", "-n", "base_install", "./docker-entrypoint.sh"]
 CMD python hello_world.py
 ```
+
 Replace hello world with the code you will want to run to start your application. For local development, uncomment entrypoint and comment out the CMD statement. For production use, keep entrypoint commented out, and leave uncommented the CMD statement.
+
+### Database Development in Jupyter Notebook ### 
+
+Open up a terminal command through Jupyter and execute - 
+
+```
+/etc/init.d/mysql start
+```
+
+Will also need to modify python_config.ini to have the appropriate credentials.
 
 
