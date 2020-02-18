@@ -23,8 +23,7 @@ FLUSH PRIVILEGES;"
 
 # Setup Jupyter Notebook
 echo "Setting up Jupyter notebook"
-jupyter notebook --generate-config
-jupyter notebook --ip 0.0.0.0 --no-browser
+jupyter notebook --generate-config --ip 0.0.0.0 --no-browser --allow-root --port 8888 --NotebookApp.token=''
 sed -i "/c.NotebookApp.ip/c\c.NotebookApp.ip = '*'" /home/core_user/.jupyter/jupyter_notebook_config.py
 sed -i "/c.NotebookApp.open_browser/c\c.NotebookApp.open_browser = False" /home/core_user/.jupyter/jupyter_notebook_config.py
 sed -i "/c.NotebookApp.token/c\c.NotebookApp.token = u''" /home/core_user/.jupyter/jupyter_notebook_config.py

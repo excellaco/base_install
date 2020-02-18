@@ -30,7 +30,7 @@ WORKDIR /home/core_user
 # Add additional files to working directory
 COPY docker-entrypoint.sh .
 COPY opt ./opt
-COPY notebooks ./notebooks
+COPY data_methods ./data_methods
 
 # Add Python dependencies
 RUN pip install keras && \
