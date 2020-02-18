@@ -18,7 +18,7 @@ Dockerfile creates an Ubuntu server with Python, Jupyter, and MySQL, before call
 ### To build a docker image - ### 
 
 ```
-docker build -t base_install_setup .
+docker build . --no-cache --build-arg SSH_PRIVATE_KEY="`cat id_rsa`" -t base_install_setup
 ```
 
 To check docker images -
