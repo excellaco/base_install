@@ -5,10 +5,11 @@ dependencies:
  - matplotlib
  - numpy
  - pandas
+ - pymysql
  - scikit-learn
  - scipy
  - seaborn
- - SQLAlchemy
+ - sqlalchemy
  - statsmodels
  - tensorboard
  - urllib3
