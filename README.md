@@ -30,11 +30,7 @@ docker images
 ### Run a docker container:### 
 
 ```
-docker run -it \
-   -p 8888:8888 \
-   -p 3306:3306 \
-   --mount type=bind, source="$(pwd)", target=/home/ubuntu/Workspace \
-   base_install_setup
+docker run -it -p 8888:8888 -p 3306:3306 base_install_setup
 ```
 
 Check docker containers:
