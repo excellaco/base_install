@@ -9,17 +9,18 @@ echo "SSH server opened"
 echo "Starting MySQL"
 sudo chown -R mysql:mysql /var/lib/mysql
 sudo sed -i "/bind-address/c\bind-address = 0.0.0.0" /etc/mysql/mysql.conf.d/mysqld.cnf
-sudo /etc/init.d/mysql start
+sudo /etc/init.d/mysql restart
 echo "MySQL started"
 
 # Create MySQL database
-echo "Creating MySQL database"
-mysql -uroot -e "CREATE DATABASE core;
-CREATE USER 'core_user'@'localhost';
-GRANT ALL PRIVILEGES ON *.* TO 'core_user'@'localhost' WITH GRANT OPTION;
-CREATE USER 'core_user'@'%';
-GRANT ALL PRIVILEGES ON *.* TO 'core_user'@'%' WITH GRANT OPTION;
-FLUSH PRIVILEGES;"
+#echo "Creating MySQL database"
+#sudo mysql -u root "use mysql;
+#CREATE USER 'core_user'@'localhost' IDENTIFIED BY '';
+#GRANT ALL PRIVILEGES ON *.* TO 'core_user'@'localhost';
+#UPDATE user set plugin='auth_socket' where user = 'core_user';
+#FLUSH PRIVILEGES;
+#exit;"
+#sudo service mysql restart
 
 # Setup Jupyter Notebook
 echo "Setting up Jupyter notebook"
