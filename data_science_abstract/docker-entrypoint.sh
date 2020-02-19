@@ -30,3 +30,5 @@ sed -i "/c.NotebookApp.open_browser/c\c.NotebookApp.open_browser = False" /home/
 sed -i "/c.NotebookApp.token/c\c.NotebookApp.token = u''" /home/core_user/.jupyter/jupyter_notebook_config.py
 sed -i "/c.NotebookApp.allow_remote_access/c\c.NotebookApp.allow_remote_access = True" /home/core_user/.jupyter/jupyter_notebook_config.py
 echo "Set up Jupyter notebook"
+
+# Final Logic

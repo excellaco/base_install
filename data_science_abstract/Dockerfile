@@ -61,8 +61,7 @@ WORKDIR /home/core_user
 COPY docker-entrypoint.sh .
 
 # Copy repository from temporary image
-#RUN sudo mkdir /${REPOSITORY_DIR}
-COPY --from=clone-repo-temp /${REPOSITORY_DIR} ./${REPOSITORY_DIR} 
+COPY --from=clone-repo-temp /${REPOSITORY_DIR} . 
 
 # Add Python dependencies
 RUN pip install keras && \
@@ -83,9 +82,10 @@ RUN pip install keras && \
 # Expose Jupyter Notebook port & MySQL port
 EXPOSE 8888
 EXPOSE 3306
-EXPOSE 22
+
+# Set Argument for RUN_SCRIPT. Local Development or Production
+ENV run_script=$run_script
 
 # Give permissions for entrypoint and execute entrypoint.
 RUN sudo chmod +x docker-entrypoint.sh
-ENTRYPOINT ./docker-entrypoint.sh; bash;
-
+ENTRYPOINT ./docker-entrypoint.sh;
