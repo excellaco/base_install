@@ -57,8 +57,6 @@ WORKDIR /home/core_user
 
 # Add additional files to working directory
 COPY docker-entrypoint.sh .
-COPY opt ./opt
-COPY data_methods ./data_methods
 
 # Copy repository from temporary image
 RUN sudo mkdir /housing_prices
