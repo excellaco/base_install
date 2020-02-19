@@ -26,7 +26,8 @@ WORKDIR /
 ARG REPO_TO_CLONE
 RUN git clone --recursive ${REPO_TO_CLONE}
 
-WORKDIR /housing_prices
+ARG REPOSITORY_DIR
+WORKDIR /${REPOSITORY_DIR}
 RUN git checkout master && git pull
 
 # Download base image and set working directory
@@ -60,8 +61,8 @@ WORKDIR /home/core_user
 COPY docker-entrypoint.sh .
 
 # Copy repository from temporary image
-RUN sudo mkdir /housing_prices
-COPY --from=clone-repo-temp /housing_prices ./housing_prices 
+#RUN sudo mkdir /${REPOSITORY_DIR}
+COPY --from=clone-repo-temp /${REPOSITORY_DIR} ./${REPOSITORY_DIR} 
 
 # Add Python dependencies
 RUN pip install keras && \
@@ -86,4 +87,5 @@ EXPOSE 22
 
 # Give permissions for entrypoint and execute entrypoint.
 RUN sudo chmod +x docker-entrypoint.sh
-ENTRYPOINT ./docker-entrypoint.sh; bash
+ENTRYPOINT ./docker-entrypoint.sh; bash;
+
