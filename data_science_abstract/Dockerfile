@@ -23,7 +23,8 @@ RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 WORKDIR /
-RUN git clone --recursive git@github.com:bcashofficial/housing_prices.git
+ARG REPO_TO_CLONE
+RUN git clone --recursive ${REPO_TO_CLONE}
 
 WORKDIR /housing_prices
 RUN git checkout master && git pull
