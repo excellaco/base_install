@@ -8,12 +8,11 @@ RUN apt-get update
 # Installing Git..
 RUN apt-get install -y git
 
-# Add ssh key as a build argument, passed with --build-arg or in the build block of your docker-compose.yml file
-# Instrutions:
-#   a. generate key with 'ssh-keygen -f ./id_rsa' (on the Dockerfile folder)
-#   b. add id_rsa.pub to 'SSH keys and GPG keys' in github profile settings
-#   c. docker build --build-arg SSH_PRIVATE_KEY="`cat id_rsa`" .
-#      Example using key file stored online: docker build --build-arg SSH_PRIVATE_KEY="`curl https://gist.githubusercontent.com/nampereira/9d32b24f167e58e1705dbb9106471dfe/raw/12ec0d21dbc293da915e23a1868f58c1a7bb4937/rsa_id`" .
+# SSH Instructions
+# 1: Generate key with 'ssh-keygen -f ./id_rsa' (on the Dockerfile folder)
+# 2: Add id_rsa.pub as an SSH key in GitHub.
+# 3: Run docker build --build-arg SSH_PRIVATE_KEY="`cat id_rsa`" .
+
 ARG SSH_PRIVATE_KEY
 RUN mkdir /root/.ssh/
 RUN echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa
