@@ -18,8 +18,8 @@ Dockerfile creates an Ubuntu server with Python, Jupyter, and MySQL, before call
 ### To build a docker image - ### 
 
 SSH Instructions if necessary.
-# 1: Generate key with 'ssh-keygen -f ./id_rsa' (on the Dockerfile folder)
-# 2: Add id_rsa.pub as an SSH key in GitHub.
+1: Generate key with 'ssh-keygen -f ./id_rsa' (on the Dockerfile folder)
+2: Add id_rsa.pub as an SSH key in GitHub.
 
 ```
 chmod +x build.sh
