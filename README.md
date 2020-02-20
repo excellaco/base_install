@@ -1,9 +1,6 @@
 # base_install
 The intent of the base install repository is to ease the workflow for developers by removing the pain of configuring a development environment per project.
 
-In this repository, we have a Dockerfile that includes Jupyter Notebooks for quick prototyping & Conda for Python dependencies. Can also connect to a database to ease some processing operations.
-This allows our team to deploy and reproduce our models in a robust preconfigured environment.
-
 ### Quick Review - ### 
 
 - **Image**: Blueprint. Containers are instances of an image.
@@ -13,14 +10,15 @@ This allows our team to deploy and reproduce our models in a robust preconfigure
 ### Dockerfile - ### 
 
 Dockerfile creates an Ubuntu server with Python, Jupyter, and MySQL, before calling our docker-entrypoint.sh script.
-	docker-entrypont.sh -> This script runs commands that will provide an OpenSSH server, start MySQL and create a user with master priviliges, before configuring a Jupyter notebook server.
 
 ### To build a docker image - ### 
 
-SSH Instructions if necessary.
+SSH Instructions if necessary. This is to add to code repositories where we are pulling code.
 
 - 1: Generate key with 'ssh-keygen -f ./id_rsa' (on the Dockerfile folder)
 - 2: Add id_rsa.pub as an SSH key in GitHub.
+
+Build steps underneath. Review the build.sh file to ensure build arguments are properly set. Modifying the build arguments are the only manual portion of this process.
 
 ```
 chmod +x build.sh
