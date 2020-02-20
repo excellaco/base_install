@@ -3,7 +3,7 @@ FROM ubuntu:18.04 as clone-repo-temp
 
 USER root
 
-# Arguments for SSH Argument & repository arguments.
+# Arguments for SSH Argument & repository arguments. Also argument for local development or production.
 ARG SSH_PRIVATE_KEY
 ARG REPO_TO_CLONE
 ARG REPOSITORY_DIR
@@ -37,8 +37,9 @@ FROM ubuntu:18.04
 
 USER root
 
-# Argument for local development or production.
-ARG RUN_SCRIPT
+# Additional variables in new base image.
+ARG RUN_SCRIPT=${RUN_SCRIPT}
+ENV RUN_SCRIPT_GLOBAL=$RUN_SCRIPT
 
 # Linux
 RUN	apt-get update && apt-get install -y build-essential && \
@@ -90,4 +91,4 @@ EXPOSE 3306
 
 # Give permissions for entrypoint and execute entrypoint.
 RUN sudo chmod +x docker-entrypoint.sh
-ENTRYPOINT ./docker-entrypoint.sh PROD
+ENTRYPOINT ./docker-entrypoint.sh $RUN_SCRIPT_GLOBAL
