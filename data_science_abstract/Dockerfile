@@ -41,6 +41,12 @@ USER root
 ARG RUN_SCRIPT=${RUN_SCRIPT}
 ENV RUN_SCRIPT_GLOBAL=$RUN_SCRIPT
 
+ARG PROD_FOLDER=${PROD_FOLDER}
+ENV PROD_FOLDER_GLOBAL=$PROD_FOLDER
+
+ARG PROD_SCRIPT_COMMAND=${PROD_SCRIPT_COMMAND}
+ENV PROD_SCRIPT_COMMAND_GLOBAL=$PROD_SCRIPT_COMMAND
+
 # Linux
 RUN	apt-get update && apt-get install -y build-essential && \
 	apt -y install openjdk-8-jdk openssh-client openssh-server rsync sudo vim git figlet python3 python3-pip
@@ -88,7 +94,8 @@ RUN pip install keras && \
 # Expose Jupyter Notebook port & MySQL port
 EXPOSE 8888
 EXPOSE 3306
+EXPOSE 22
 
 # Give permissions for entrypoint and execute entrypoint.
 RUN sudo chmod +x docker-entrypoint.sh
-ENTRYPOINT ./docker-entrypoint.sh $RUN_SCRIPT_GLOBAL
+ENTRYPOINT ./docker-entrypoint.sh $RUN_SCRIPT_GLOBAL $PROD_FOLDER_GLOBAL $PROD_SCRIPT_COMMAND_GLOBAL

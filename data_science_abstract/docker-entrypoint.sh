@@ -3,6 +3,8 @@
 # Check Variables
 echo "Checking Variables"
 echo "$1"
+echo "$2"
+echo "$3"
 echo "Checked Variables"
 
 # Start SSH
@@ -16,16 +18,6 @@ sudo chown -R mysql:mysql /var/lib/mysql
 sudo sed -i "/bind-address/c\bind-address = 0.0.0.0" /etc/mysql/mysql.conf.d/mysqld.cnf
 sudo /etc/init.d/mysql restart
 echo "MySQL started"
-
-# Create MySQL database
-#echo "Creating MySQL database"
-#sudo mysql -u root "use mysql;
-#CREATE USER 'core_user'@'localhost' IDENTIFIED BY '';
-#GRANT ALL PRIVILEGES ON *.* TO 'core_user'@'localhost';
-#UPDATE user set plugin='auth_socket' where user = 'core_user';
-#FLUSH PRIVILEGES;
-#exit;"
-#sudo service mysql restart
 
 # Setup Jupyter Notebook
 echo "Setting up Jupyter notebook"
@@ -44,6 +36,6 @@ if [ "$1" = "DEBUG" ];
 		bash
 	else
 		echo "PRODUCTION MODE"
-		cd housing_prices
-		python linear_regression.py
+		cd $2
+		$3
 fi;
