@@ -5,6 +5,7 @@ echo "Checking Variables"
 echo "$1"
 echo "$2"
 echo "$3"
+echo "$4"
 echo "Checked Variables"
 
 # Start SSH
@@ -37,5 +38,5 @@ if [ "$1" = "DEBUG" ];
 	else
 		echo "PRODUCTION MODE"
 		cd $2
-		$3
+		$3 $4
 fi;
