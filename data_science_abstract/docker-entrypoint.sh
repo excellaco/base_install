@@ -40,8 +40,10 @@ echo "Set up Jupyter notebook"
 
 if [ "$1" = "DEBUG" ];
 	then
-		echo "RIP KOBE"
+		echo "DEBUG MODE"
+		bash
 	else
-		echo $1
-		echo "RIP POP SMOKE"
+		echo "PRODUCTION MODE"
+		cd housing_prices
+		python linear_regression.py
 fi;

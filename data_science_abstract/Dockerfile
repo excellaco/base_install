@@ -90,4 +90,4 @@ EXPOSE 3306
 
 # Give permissions for entrypoint and execute entrypoint.
 RUN sudo chmod +x docker-entrypoint.sh
-ENTRYPOINT ./docker-entrypoint.sh DEBUG
+ENTRYPOINT ./docker-entrypoint.sh PROD
