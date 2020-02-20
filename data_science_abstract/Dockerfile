@@ -3,6 +3,11 @@ FROM ubuntu:18.04 as clone-repo-temp
 
 USER root
 
+# Arguments for SSH Argument & repository arguments.
+ARG SSH_PRIVATE_KEY
+ARG REPO_TO_CLONE
+ARG REPOSITORY_DIR
+
 RUN apt-get update
 
 # Installing Git..
@@ -13,7 +18,6 @@ RUN apt-get install -y git
 # 2: Add id_rsa.pub as an SSH key in GitHub.
 # 3: Run docker build --build-arg SSH_PRIVATE_KEY="`cat id_rsa`" .
 
-ARG SSH_PRIVATE_KEY
 RUN mkdir /root/.ssh/
 RUN echo "${SSH_PRIVATE_KEY}" > /root/.ssh/id_rsa
 RUN chmod 600 /root/.ssh/id_rsa
@@ -23,10 +27,8 @@ RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 WORKDIR /
-ARG REPO_TO_CLONE
 RUN git clone --recursive ${REPO_TO_CLONE}
 
-ARG REPOSITORY_DIR
 WORKDIR /${REPOSITORY_DIR}
 RUN git checkout master && git pull
 
@@ -34,6 +36,9 @@ RUN git checkout master && git pull
 FROM ubuntu:18.04
 
 USER root
+
+# Argument for local development or production.
+ARG RUN_SCRIPT
 
 # Linux
 RUN	apt-get update && apt-get install -y build-essential && \
@@ -83,9 +88,6 @@ RUN pip install keras && \
 EXPOSE 8888
 EXPOSE 3306
 
-# Set Argument for RUN_SCRIPT. Local Development or Production
-ENV run_script=$run_script
-
 # Give permissions for entrypoint and execute entrypoint.
 RUN sudo chmod +x docker-entrypoint.sh
-ENTRYPOINT ./docker-entrypoint.sh;
+ENTRYPOINT ./docker-entrypoint.sh DEBUG

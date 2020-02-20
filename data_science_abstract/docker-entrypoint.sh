@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Check Variables
+echo "Checking Variables"
+echo "$1"
+echo "Checked Variables"
+
 # Start SSH
 echo "Open SSH server"
 sudo /etc/init.d/ssh start
@@ -32,3 +37,11 @@ sed -i "/c.NotebookApp.allow_remote_access/c\c.NotebookApp.allow_remote_access =
 echo "Set up Jupyter notebook"
 
 # Final Logic
+
+if [ "$1" = "DEBUG" ];
+	then
+		echo "RIP KOBE"
+	else
+		echo $1
+		echo "RIP POP SMOKE"
+fi;
