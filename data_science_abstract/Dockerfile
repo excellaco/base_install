@@ -83,6 +83,7 @@ RUN pip install keras && \
    pip install matplotlib && \
    pip install numpy && \
    pip install pandas && \
+   pip install -U protobuf==3.8.0 && \
    pip install pymysql && \
    pip install scikit-learn && \
    pip install scipy && \
